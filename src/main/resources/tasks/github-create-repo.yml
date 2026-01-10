@@ -1,0 +1,46 @@
+# GitHub 创建仓库任务
+# 直接导航到创建仓库页面
+
+name: "GitHub 创建仓库"
+description: "自动创建 GitHub 仓库"
+url: "https://github.com/new"
+requireAuth: true
+
+# 定义变量，可在执行时覆盖
+variables:
+  repoName: "my-new-repo"
+
+steps:
+  # 等待创建仓库页面加载 - 使用正确的选择器
+  - action: wait
+    selector: "#repository-name-input"
+    timeout: 20000
+    description: "等待创建仓库页面"
+
+  # 输入仓库名称（使用变量）
+  - action: fill
+    selector: "#repository-name-input"
+    value: "${repoName}"
+    description: "输入仓库名称"
+
+  # 稍等一下让页面验证名称
+  - action: sleep
+    timeout: 3000
+    description: "等待名称验证"
+
+  # 点击创建按钮 - 使用文本选择器
+  - action: click
+    selector: "text=Create repository"
+    timeout: 15000
+    description: "点击创建仓库按钮"
+
+  # 等待创建完成
+  - action: wait
+    selector: "text=Quick setup"
+    timeout: 30000
+    description: "等待仓库创建完成"
+
+  # 截图验证
+  - action: screenshot
+    value: "./screenshots/github-repo-created.png"
+    description: "保存创建成功截图"

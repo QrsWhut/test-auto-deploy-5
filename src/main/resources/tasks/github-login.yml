@@ -1,0 +1,49 @@
+# GitHub 登录任务
+# 首次使用需手动完成二次验证，之后登录状态会自动保存
+
+name: "GitHub 登录"
+description: "自动登录 GitHub 并进入主页"
+url: "https://github.com/"
+requireAuth: true
+
+steps:
+  # 点击登录链接
+  - action: click
+    selector: "role=link[name='Sign in']"
+    description: "点击 Sign in 链接"
+
+  # 输入用户名
+  - action: click
+    selector: "[aria-label='Username or email address']"
+    description: "点击用户名输入框"
+
+  - action: fill
+    selector: "[aria-label='Username or email address']"
+    value: "${GITHUB_USERNAME}"
+    description: "输入用户名（请替换为你的用户名）"
+
+  # 输入密码
+  - action: click
+    selector: "[aria-label='Password']"
+    description: "点击密码输入框"
+
+  - action: fill
+    selector: "[aria-label='Password']"
+    value: "${GITHUB_PASSWORD}"
+    description: "输入密码（请替换为你的密码）"
+
+  # 提交登录
+  - action: click
+    selector: "[aria-label='Password']"
+    description: "激活密码框"
+
+  - action: type
+    selector: "[aria-label='Password']"
+    value: "\n"
+    description: "按 Enter 提交"
+
+  # 等待登录成功（跳过二次验证后的页面）
+  - action: wait
+    selector: "role=link[name='New']"
+    timeout: 120000
+    description: "等待登录成功（首次需手动完成二次验证）"

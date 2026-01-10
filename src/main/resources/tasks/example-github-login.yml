@@ -1,0 +1,36 @@
+# 示例任务：GitHub 登录测试
+# 这是一个用于测试自动化功能的示例配置
+
+name: "GitHub 登录测试"
+description: "测试自动化登录 GitHub 并访问个人主页"
+url: "https://github.com/login"
+requireAuth: true
+
+steps:
+  # 输入用户名
+  - action: fill
+    selector: "#login_field"
+    value: "your-username"
+    description: "输入用户名"
+  
+  # 输入密码
+  - action: fill
+    selector: "#password"
+    value: "your-password"
+    description: "输入密码"
+  
+  # 点击登录按钮
+  - action: click
+    selector: "input[type='submit']"
+    description: "点击登录按钮"
+  
+  # 等待登录成功（头像出现）
+  - action: wait
+    selector: "img.avatar"
+    timeout: 10000
+    description: "等待登录成功"
+  
+  # 截图保存
+  - action: screenshot
+    value: "./screenshots/github-login-success.png"
+    description: "保存登录成功截图"

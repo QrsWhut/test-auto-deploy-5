@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auto-deployment
+
+# 自动化部署配置
+autodeploy:
+  # 浏览器配置
+  browser:
+    # 是否无头模式（false = 显示浏览器窗口）
+    headless: false
+    # 浏览器类型: chromium, firefox, webkit
+    type: chromium
+    # 慢动作模式，方便调试（毫秒）
+    slow-mo: 100
+  
+  # 登录状态存储路径
+  auth:
+    storage-path: ./auth/storage-state.json
+  
+  # 任务配置目录
+  tasks:
+    directory: ./src/main/resources/tasks
+
+logging:
+  level:
+    com.autodeploy: DEBUG

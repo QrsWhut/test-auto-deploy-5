@@ -1,0 +1,19 @@
+# GitHub 状态验证任务
+# 使用已保存的登录状态，验证是否能直接进入已登录页面
+
+name: "GitHub 状态验证"
+description: "验证保存的登录状态是否有效"
+url: "https://github.com"
+requireAuth: true
+
+steps:
+  # 等待页面加载完成
+  - action: wait
+    selector: "role=link[name='New']"
+    timeout: 10000
+    description: "等待 New 按钮出现（表示已登录）"
+
+  # 截图验证
+  - action: screenshot
+    value: "./screenshots/github-logged-in.png"
+    description: "截图保存登录状态验证"
